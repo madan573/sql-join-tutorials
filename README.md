@@ -1,6 +1,9 @@
-**Module 1: Prerequisites & Basics of SQL**, perfect for beginners who want to learn SQL from scratch — especially focusing on foundations needed for understanding **SQL JOINs** later.
+**Prerequisites & Basics of SQL**, perfect for beginners who want to learn SQL from scratch — especially focusing on foundations needed for understanding **SQL JOINs** later.
+
 ---
-# **Module 1: Prerequisites & Basics of SQL**
+
+## **Module 1: Prerequisites & Basics of SQL**
+
 ---
 ### **1. What is a Database and RDBMS?**
 
@@ -89,20 +92,22 @@ SELECT * FROM employees WHERE dept_id = 1;
 This connection between tables is **what enables JOINs**.
 
 ---
-#  **Module 2: Introduction to SQL JOINs**
+##  **Module 2: Introduction to SQL JOINs**
 ---
-## **1. What is a JOIN?**
+### **1. What is a JOIN?**
+
 A **JOIN** in SQL is used to **combine rows from two or more tables** based on a related column between them.
 Think of it as **connecting tables** like puzzle pieces using a common field (e.g., `dept_id` in both `departments` and `employees`).
+
 ---
-## **2. Why JOIN is Used?**
+### **2. Why JOIN is Used?**
 Databases are **normalized** — data is split across multiple tables to reduce redundancy.
 **JOINs are used to:**
 * Fetch **complete information** by combining related data.
 * Run **powerful queries** across multiple tables.
 * Maintain **data integrity** without repeating data.
 
-###  Example:
+####  Example:
 Two tables:
 **employees**
 
@@ -127,15 +132,15 @@ bhandari | HR
 ```
 ---
 
-##  **3. Syntax of JOINs**
-###  General JOIN Syntax:
+###  **3. Syntax of JOINs**
+####  General JOIN Syntax:
 ```sql
 SELECT columns
 FROM table1
 JOIN table2
 ON table1.common_field = table2.common_field;
 ```
-### Example:
+##### Example:
 
 ```sql
 SELECT e.emp_name, d.dept_name
@@ -144,49 +149,55 @@ JOIN departments d
 ON e.dept_id = d.dept_id;
 ```
 Here, `dept_id` is the **foreign key** in `employees` and **primary key** in `departments`.
+
 ---
-## **4. Types of Relationships in Tables**
-### **One-to-One (1:1)**
+### **4. Types of Relationships in Tables**
+#### **One-to-One (1:1)**
 Each row in Table A is related to **one and only one** row in Table B.
 → Rare in practice.
 
-### **One-to-Many (1\:N)**
+#### **One-to-Many (1\:N)**
 One row in Table A relates to **many rows** in Table B.
 → Most common relationship.
 **Example:** One department has many employees.
 
-### **Many-to-Many (M\:N)**
+#### **Many-to-Many (M\:N)**
 Many rows in Table A relate to many rows in Table B.
 → Requires a **junction table**.
 **Example:** Students and Courses (a student can take many courses, a course has many students)
+
 ---
-#  **Module 3: INNER JOIN**
+##  **Module 3: INNER JOIN**
+
 ---
-##  **1. Concept of INNER JOIN**
+###  **1. Concept of INNER JOIN**
 **INNER JOIN** returns **only the matching rows** from two or more tables based on a given condition.
 It **excludes** rows that don’t have a match in both tables.
+
 ---
-### Example Use Case:
+#### Example Use Case:
 You want to list employees **with their department names** — but only those who are **assigned to a department**.
+
 ---
-## **2. Syntax and Usage**
-### Basic INNER JOIN Syntax:
+### **2. Syntax and Usage**
+#### Basic INNER JOIN Syntax:
 ```sql
 SELECT columns
 FROM table1
 INNER JOIN table2
 ON table1.column = table2.column;
 ```
-### Aliased Version (often used):
+#### Aliased Version (often used):
 ```sql
 SELECT e.emp_name, d.dept_name
 FROM employees e
 INNER JOIN departments d
 ON e.dept_id = d.dept_id;
 ```
+
 ---
-## **3. Examples with Two Tables**
-### Example Tables:
+### **3. Examples with Two Tables**
+#### Example Tables:
 **employees**
 
 | emp\_id | emp\_name | dept\_id |
@@ -209,15 +220,16 @@ FROM employees e
 INNER JOIN departments d
 ON e.dept_id = d.dept_id;
 ```
-### Result:
+#### Result:
 | emp\_name | dept\_name |
 | --------- | ---------- |
 | Madan     | IT         |
 | Sam       | HR         |
 
 Note: **bhandari** is not shown because her `dept_id` is `NULL`.
+
 ---
-## **4. Filtering with WHERE Clause**
+### **4. Filtering with WHERE Clause**
 You can add conditions after the JOIN using `WHERE`:
 ```sql
 SELECT e.emp_name, d.dept_name
@@ -231,9 +243,9 @@ Result:
 | Madan     | IT         |
 
 ---
-## **5. INNER JOIN with More than Two Tables**
+### **5. INNER JOIN with More than Two Tables**
 You can **chain INNER JOINs** to combine 3 or more tables.
-### Tables:
+#### Tables:
 * `employees`
 * `departments`
 * `locations`
@@ -244,11 +256,12 @@ FROM employees e
 INNER JOIN departments d ON e.dept_id = d.dept_id
 INNER JOIN locations l ON d.location_id = l.location_id;
 ```
-# **Practice Set: INNER JOIN**
+## **Practice Set: INNER JOIN**
+
 ---
-## **1. Employees & Departments**
-### Tables:
-#### **departments**
+### **1. Employees & Departments**
+#### Tables:
+##### **departments**
 
 ```sql
 CREATE TABLE departments (
@@ -256,7 +269,7 @@ CREATE TABLE departments (
   dept_name VARCHAR(50)
 );
 ```
-#### **employees**
+##### **employees**
 ```sql
 CREATE TABLE employees (
   emp_id INT PRIMARY KEY,
@@ -265,7 +278,7 @@ CREATE TABLE employees (
   FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
 );
 ```
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO departments VALUES
 (1, 'IT'),
@@ -279,7 +292,7 @@ INSERT INTO employees VALUES
 (104, 'David', NULL);
 ```
 
-###  Practice Queries:
+####  Practice Queries:
 1. **List employee names and their department names**:
 ```sql
 SELECT e.emp_name, d.dept_name
@@ -301,25 +314,26 @@ FROM employees e
 INNER JOIN departments d ON e.dept_id = d.dept_id
 GROUP BY d.dept_name;
 ```
+
 ---
 
-## **2. Students & Courses**
-### Tables:
-#### **courses**
+### **2. Students & Courses**
+#### Tables:
+##### **courses**
 ```sql
 CREATE TABLE courses (
   course_id INT PRIMARY KEY,
   course_name VARCHAR(100)
 );
 ```
-#### **students**
+##### **students**
 ```sql
 CREATE TABLE students (
   student_id INT PRIMARY KEY,
   student_name VARCHAR(100)
 );
 ```
-#### **enrollments** (junction table for many-to-many)
+##### **enrollments** (junction table for many-to-many)
 ```sql
 CREATE TABLE enrollments (
   student_id INT,
@@ -328,7 +342,7 @@ CREATE TABLE enrollments (
   FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
 ```
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO students VALUES
 (1, 'Aarav'),
@@ -346,7 +360,7 @@ INSERT INTO enrollments VALUES
 (2, 103),
 (3, 101);
 ```
-### Practice Queries:
+#### Practice Queries:
 1. **List all students with the courses they are enrolled in**:
 ```sql
 SELECT s.student_name, c.course_name
@@ -369,22 +383,26 @@ FROM enrollments e
 INNER JOIN courses c ON e.course_id = c.course_id
 GROUP BY c.course_name;
 ```
-# **Module 4: LEFT JOIN (or LEFT OUTER JOIN)**
+## **Module 4: LEFT JOIN (or LEFT OUTER JOIN)**
+
 ---
-## **1. Understanding LEFT JOIN Logic**
+### **1. Understanding LEFT JOIN Logic**
+
 A **LEFT JOIN** returns:
 * All records from the **left table**
 * Matching records from the **right table**
 * If there's **no match**, NULLs are returned for right table columns.
-### Visualize:
+
+#### Visualize:
 ```
 LEFT TABLE:  ✔️✔️✔️✔️
 RIGHT TABLE:    ✔️  ✔️
 
 Result:         ✔️✔️❌✔️ (NULLs shown where no match)
 ```
+
 ---
-## **2. Difference Between INNER JOIN and LEFT JOIN**
+### **2. Difference Between INNER JOIN and LEFT JOIN**
 
 | Feature       | INNER JOIN                        | LEFT JOIN (LEFT OUTER JOIN)       |
 | ------------- | --------------------------------- | --------------------------------- |
@@ -393,8 +411,8 @@ Result:         ✔️✔️❌✔️ (NULLs shown where no match)
 | Use case      | When both sides must have data    | When left-side data is primary    |
 
 ---
-### Example
-#### **Tables:**
+#### Example
+##### **Tables:**
 **departments**
 | dept\_id | dept\_name |
 | -------- | ---------- |
@@ -411,7 +429,7 @@ Result:         ✔️✔️❌✔️ (NULLs shown where no match)
 | 103     | Carol     | NULL     |
 
 ---
-### INNER JOIN:
+#### INNER JOIN:
 ```sql
 SELECT e.emp_name, d.dept_name
 FROM employees e
@@ -425,7 +443,7 @@ INNER JOIN departments d ON e.dept_id = d.dept_id;
 
 Carol is **not shown** (no matching dept)
 ---
-### LEFT JOIN:
+#### LEFT JOIN:
 ```sql
 SELECT e.emp_name, d.dept_name
 FROM employees e
@@ -441,9 +459,9 @@ LEFT JOIN departments d ON e.dept_id = d.dept_id;
 Carol is included — `dept_name` is NULL since there’s no matching department.
 ---
 
-## **3. Handling NULL Values**
+### **3. Handling NULL Values**
 When using LEFT JOIN, you often get `NULL` values for non-matching right table data.
-### Common techniques:
+#### Common techniques:
 * Use `IS NULL` to **filter unmatched**:
 
   ```sql
@@ -459,9 +477,10 @@ This finds employees **without any department**.
   FROM employees e
   LEFT JOIN departments d ON e.dept_id = d.dept_id;
   ```
+
 ---
-## **4. Real-World Examples of LEFT JOIN**
-### Example 1: Students with or without enrollment
+### **4. Real-World Examples of LEFT JOIN**
+#### Example 1: Students with or without enrollment
 ```sql
 SELECT s.student_name, c.course_name
 FROM students s
@@ -469,27 +488,30 @@ LEFT JOIN enrollments e ON s.student_id = e.student_id
 LEFT JOIN courses c ON e.course_id = c.course_id;
 ```
 * This shows **all students**, even those **not enrolled** in any course.
+
 ---
-### Example 2: Orders with or without shipping details
+#### Example 2: Orders with or without shipping details
 ```sql
 SELECT o.order_id, s.ship_date
 FROM orders o
 LEFT JOIN shipping s ON o.order_id = s.order_id;
 ```
 * View all orders, including ones that are **not yet shipped**.
+
 ---
-# **Practice Set: LEFT JOIN**
+## **Practice Set: LEFT JOIN**
+
 ---
-## **1. Customers & Orders**
-### Tables:
-#### **customers**
+### **1. Customers & Orders**
+#### Tables:
+##### **customers**
 ```sql
 CREATE TABLE customers (
   customer_id INT PRIMARY KEY,
   customer_name VARCHAR(100)
 );
 ```
-#### **orders**
+##### **orders**
 ```sql
 CREATE TABLE orders (
   order_id INT PRIMARY KEY,
@@ -498,7 +520,7 @@ CREATE TABLE orders (
   FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 ```
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO customers VALUES
 (1, 'John'),
@@ -511,9 +533,10 @@ INSERT INTO orders VALUES
 (102, 2, '2024-02-10'),
 (103, 1, '2024-03-05');
 ```
+
 ---
-### Practice Queries:
-#### 1. **List all customers with their orders (if any):**
+#### Practice Queries:
+##### 1. **List all customers with their orders (if any):**
 
 ```sql
 SELECT c.customer_name, o.order_id, o.order_date
@@ -521,9 +544,10 @@ FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id;
 ```
 You will see that **Ravi and Laxmi** are shown with **NULL** for `order_id` and `order_date`.
+
 ---
 
-#### 2. **List customers who have NOT placed any orders:**
+##### 2. **List customers who have NOT placed any orders:**
 ```sql
 SELECT c.customer_name
 FROM customers c
@@ -531,17 +555,18 @@ LEFT JOIN orders o ON c.customer_id = o.customer_id
 WHERE o.order_id IS NULL;
 ```
 This filters only customers **without** orders.
+
 ---
-## **2. Teachers & Classes**
-### Tables:
-#### **teachers**
+### **2. Teachers & Classes**
+#### Tables:
+##### **teachers**
 ```sql
 CREATE TABLE teachers (
   teacher_id INT PRIMARY KEY,
   teacher_name VARCHAR(100)
 );
 ```
-#### **classes**
+##### **classes**
 ```sql
 CREATE TABLE classes (
   class_id INT PRIMARY KEY,
@@ -550,7 +575,7 @@ CREATE TABLE classes (
   FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id)
 );
 ```
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO teachers VALUES
 (1, 'Mr. Sharma'),
@@ -561,17 +586,19 @@ INSERT INTO classes VALUES
 (201, 'Math', 1),
 (202, 'English', 2);
 ```
+
 ---
-### Practice Queries:
-#### 1. **List all teachers with their assigned classes:**
+#### Practice Queries:
+##### 1. **List all teachers with their assigned classes:**
 ```sql
 SELECT t.teacher_name, c.class_name
 FROM teachers t
 LEFT JOIN classes c ON t.teacher_id = c.teacher_id;
 ```
 This includes **Mr. Joshi** even though he has no class assigned.
+
 ---
-#### 2. **Find teachers without any class assigned:**
+##### 2. **Find teachers without any class assigned:**
 ```sql
 SELECT t.teacher_name
 FROM teachers t
@@ -579,48 +606,56 @@ LEFT JOIN classes c ON t.teacher_id = c.teacher_id
 WHERE c.class_id IS NULL;
 ```
 Shows teachers **not currently teaching** any class.
+
 ---
-# **Module 5: RIGHT JOIN (or RIGHT OUTER JOIN)**
+## **Module 5: RIGHT JOIN (or RIGHT OUTER JOIN)**
+
 ---
-## **1. RIGHT JOIN Logic and Comparison with LEFT JOIN**
+### **1. RIGHT JOIN Logic and Comparison with LEFT JOIN**
+
 A **RIGHT JOIN** returns:
 * All rows from the **right table**
 * Matching rows from the **left table**
 * If no match, returns **NULLs** for left table columns
+
 ---
-### **Comparison Table:**
+#### **Comparison Table:**
 | Feature                | LEFT JOIN                           | RIGHT JOIN                  |
 | ---------------------- | ----------------------------------- | --------------------------- |
 | Includes all rows from | Left table                          | Right table                 |
 | Non-matching rows      | Right table rows = NULL             | Left table rows = NULL      |
 | Usage                  | When left table is primary          | When right table is primary |
 | Same result?           | Yes, if you reverse the table order |                             |
+
 ---
-### Example Logic:
+#### Example Logic:
 ```sql
 SELECT ...
 FROM A
 RIGHT JOIN B ON A.id = B.id;
 ```
 This returns all rows from `B`, and matching rows from `A`.
+
 ---
-## **2. When and Why to Use RIGHT JOIN**
-### Use RIGHT JOIN when:
+### **2. When and Why to Use RIGHT JOIN**
+#### Use RIGHT JOIN when:
 * The **right table is the focus** (e.g., you want to show **all managers**, even if they don’t have employees).
 * You want to highlight **unmatched rows** from the right table.
 * Your JOIN conditions or logic feel more **natural** reading left-to-right with the right table being dominant.
+
 ---
-## **Practice: Employees & Managers**
+### **Practice: Employees & Managers**
+
 ---
-### Sample Schema:
-#### **managers**
+#### Sample Schema:
+##### **managers**
 ```sql
 CREATE TABLE managers (
   manager_id INT PRIMARY KEY,
   manager_name VARCHAR(100)
 );
 ```
-#### **employees**
+##### **employees**
 ```sql
 CREATE TABLE employees (
   emp_id INT PRIMARY KEY,
@@ -629,8 +664,9 @@ CREATE TABLE employees (
   FOREIGN KEY (manager_id) REFERENCES managers(manager_id)
 );
 ```
+
 ---
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO managers VALUES
 (1, 'Mr. Sharma'),
@@ -643,9 +679,10 @@ INSERT INTO employees VALUES
 (103, 'Carol', 2);
 ```
 Mr. Joshi has **no employees under him**.
+
 ---
-### Practice Queries:
-#### 1. **List all managers and their employees (if any):**
+#### Practice Queries:
+##### 1. **List all managers and their employees (if any):**
 ```sql
 SELECT e.emp_name, m.manager_name
 FROM employees e
@@ -660,8 +697,9 @@ Result:
 | NULL      | Mr. Joshi     |
 
 Mr. Joshi is shown even though he has **no employee** — his `emp_name` is NULL.
+
 ---
-#### 2. **Find managers without any employees:**
+##### 2. **Find managers without any employees:**
 ```sql
 SELECT m.manager_name
 FROM employees e
@@ -669,10 +707,13 @@ RIGHT JOIN managers m ON e.manager_id = m.manager_id
 WHERE e.emp_id IS NULL;
 ```
 Output: `Mr. Joshi`
+
 ---
-# **Module 6: FULL JOIN (or FULL OUTER JOIN)**
+## **Module 6: FULL JOIN (or FULL OUTER JOIN)**
+
 ---
-## **1. Understanding FULL JOIN Behavior**
+### **1. Understanding FULL JOIN Behavior**
+
 A **FULL JOIN** (also called **FULL OUTER JOIN**) returns:
 * All matching rows from both tables
 * **Unmatched rows** from **left table** (with NULLs from right)
@@ -681,14 +722,16 @@ In simple terms:
 ```
 FULL JOIN = LEFT JOIN + RIGHT JOIN
 ```
+
 ---
-### Example:
+#### Example:
 You want to compare **sales from 2023 and 2024**, and show:
 * Products sold **only in 2023**
 * Products sold **only in 2024**
 * Products sold in **both years**
+
 ---
-## 2. MySQL Does **Not Natively Support FULL JOIN**
+### 2. MySQL Does **Not Natively Support FULL JOIN**
 Since **MySQL does not support FULL JOIN directly**, you can **simulate** it using:
 ```sql
 SELECT ...
@@ -699,11 +742,13 @@ SELECT ...
 FROM table1
 RIGHT JOIN table2 ON ...
 ```
+
 ---
-## 3. Practice: Sales Data from Two Years
+### 3. Practice: Sales Data from Two Years
+
 ---
-### Tables:
-#### **sales\_2023**
+#### Tables:
+##### **sales\_2023**
 ```sql
 CREATE TABLE sales_2023 (
   product_id INT PRIMARY KEY,
@@ -711,7 +756,7 @@ CREATE TABLE sales_2023 (
   sales_amount INT
 );
 ```
-#### **sales\_2024**
+##### **sales\_2024**
 ```sql
 CREATE TABLE sales_2024 (
   product_id INT PRIMARY KEY,
@@ -719,8 +764,9 @@ CREATE TABLE sales_2024 (
   sales_amount INT
 );
 ```
+
 ---
-### Sample Data:
+#### Sample Data:
 ```sql
 -- 2023 Sales
 INSERT INTO sales_2023 VALUES
@@ -734,8 +780,9 @@ INSERT INTO sales_2024 VALUES
 (3, 'Mouse', 150),
 (4, 'Keyboard', 300);
 ```
+
 ---
-### Simulated FULL JOIN in MySQL
+#### Simulated FULL JOIN in MySQL
 ```sql
 -- FULL JOIN using UNION of LEFT and RIGHT JOIN
 SELECT
@@ -756,8 +803,9 @@ SELECT
 FROM sales_2023 s23
 RIGHT JOIN sales_2024 s24 ON s23.product_id = s24.product_id;
 ```
+
 ---
-### Output:
+#### Output:
 | product\_id | product\_name | sales\_2023 | sales\_2024 |
 | ----------- | ------------- | ----------- | ----------- |
 | 1           | Laptop        | 1000        | 1200        |
@@ -766,21 +814,24 @@ RIGHT JOIN sales_2024 s24 ON s23.product_id = s24.product_id;
 | 4           | Keyboard      | NULL        | 300         |
 
 ---
-# **Module 7: CROSS JOIN**
+## **Module 7: CROSS JOIN**
+
 ---
-## **1. What is a CROSS JOIN?**
+### **1. What is a CROSS JOIN?**
+
 A **CROSS JOIN** returns the **Cartesian product** of two tables:
 Every row from the first table is **combined with every row** from the second table.
-### Example:
+#### Example:
 If Table A has 3 rows and Table B has 2 rows, a CROSS JOIN will return:
 ```
 3 × 2 = 6 rows
 ```
 **No ON condition** is used in a CROSS JOIN.
+
 ---
-## **2. Cartesian Product**
+### **2. Cartesian Product**
 A **Cartesian product** is the **complete pairing** of all rows from two tables.
-### Syntax:
+#### Syntax:
 ```sql
 SELECT *
 FROM table1
@@ -791,33 +842,37 @@ Or simply:
 SELECT *
 FROM table1, table2;
 ```
+
 ---
-## **3. When to Use and Avoid CROSS JOIN**
-### Use CROSS JOIN When:
+### **3. When to Use and Avoid CROSS JOIN**
+#### Use CROSS JOIN When:
 * You want to **generate combinations** (e.g., color × size).
 * You are doing **testing**, **permutations**, or **simulations**.
 * You want **every possible pair** between two lists.
-### Avoid When:
+#### Avoid When:
 * Tables have large number of rows → can cause **performance issues**.
 * You mistakenly forget the `ON` condition in a normal JOIN — this **accidentally becomes a CROSS JOIN**.
+
 ---
-## **Practice: Combining Colors & Sizes**
+### **Practice: Combining Colors & Sizes**
+
 ---
-### Tables:
-#### **colors**
+#### Tables:
+##### **colors**
 ```sql
 CREATE TABLE colors (
   color_name VARCHAR(20)
 );
 ```
-#### **sizes**
+##### **sizes**
 ```sql
 CREATE TABLE sizes (
   size_label VARCHAR(10)
 );
 ```
+
 ---
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO colors VALUES
 ('Red'),
@@ -829,15 +884,17 @@ INSERT INTO sizes VALUES
 ('M'),
 ('L');
 ```
+
 ---
-### Query: All Color × Size Combinations
+#### Query: All Color × Size Combinations
 ```sql
 SELECT c.color_name, s.size_label
 FROM colors c
 CROSS JOIN sizes s;
 ```
+
 ---
-### Output:
+#### Output:
 | color\_name | size\_label |
 | ----------- | ----------- |
 | Red         | S           |
@@ -851,19 +908,24 @@ CROSS JOIN sizes s;
 | Green       | L           |
 
 You now have all **9 combinations** of color and size.
+
 ---
-# **Module 8: SELF JOIN**
+## **Module 8: SELF JOIN**
+
 ---
-## **1. What is a SELF JOIN?**
+### **1. What is a SELF JOIN?**
+
 A **SELF JOIN** is a **regular JOIN where a table is joined to itself**.
 Since you are using the same table twice, you must use **aliases** to differentiate them.
+
 ---
-### Why SELF JOIN?
+#### Why SELF JOIN?
 * To compare **rows within the same table**
 * To build **hierarchies** (e.g., employees and their managers)
 * To find **related data** from the same dataset
+
 ---
-## **2. Syntax of SELF JOIN**
+### **2. Syntax of SELF JOIN**
 ```sql
 SELECT a.column, b.column
 FROM table_name a
@@ -871,10 +933,13 @@ JOIN table_name b
 ON a.related_column = b.related_column;
 ```
 You treat the same table as two separate ones using **aliases**.
+
 ---
-## **3. Use Case: Employee-Supervisor Relationship**
+### **3. Use Case: Employee-Supervisor Relationship**
+
 You want to list all employees **along with their managers’ names**.
-### Table: `employees`
+
+#### Table: `employees`
 | emp\_id | emp\_name | manager\_id |
 | ------- | --------- | ----------- |
 | 1       | Alice     | NULL        |
@@ -884,8 +949,9 @@ You want to list all employees **along with their managers’ names**.
 
 Here:
 * `manager_id` is a **foreign key** that points to `emp_id` in the **same table**.
+
 ---
-## **4. Query: List Employee with Their Manager**
+### **4. Query: List Employee with Their Manager**
 ```sql
 SELECT 
   e.emp_name AS employee,
@@ -894,8 +960,9 @@ FROM employees e
 LEFT JOIN employees m
   ON e.manager_id = m.emp_id;
 ```
+
 ---
-### Output:
+#### Output:
 | employee | manager |
 | -------- | ------- |
 | Alice    | NULL    |
@@ -904,9 +971,10 @@ LEFT JOIN employees m
 | David    | Bob     |
 
 `Alice` has no manager (top-level), others show their respective manager names.
+
 ---
-## **5. Practice: SELF JOIN on Employee Table**
-### Table Setup:
+### **5. Practice: SELF JOIN on Employee Table**
+#### Table Setup:
 ```sql
 CREATE TABLE employees (
   emp_id INT PRIMARY KEY,
@@ -914,7 +982,7 @@ CREATE TABLE employees (
   manager_id INT
 );
 ```
-### Sample Data:
+#### Sample Data:
 ```sql
 INSERT INTO employees VALUES
 (1, 'Alice', NULL),
@@ -923,8 +991,9 @@ INSERT INTO employees VALUES
 (4, 'David', 2),
 (5, 'Eva', 3);
 ```
+
 ---
-### Practice Queries:
+#### Practice Queries:
 1. **List each employee with their manager name**:
 ```sql
 SELECT 
@@ -950,12 +1019,14 @@ WHERE sub.emp_id IS NULL;
 ```
 
 This filters employees **who have no subordinates**.
+
 ---
-# **Module 9: Advanced JOIN Techniques**
+## **Module 9: Advanced JOIN Techniques**
+
 ---
-## **1. JOINs with Aggregate Functions (`GROUP BY`, `COUNT`, `SUM`)**
+### **1. JOINs with Aggregate Functions (`GROUP BY`, `COUNT`, `SUM`)**
 When using JOINs, you can **group** results and apply aggregate functions to get summaries.
-### Example: Count Employees per Department
+#### Example: Count Employees per Department
 ```sql
 SELECT d.dept_name, COUNT(e.emp_id) AS total_employees
 FROM departments d
@@ -963,18 +1034,21 @@ LEFT JOIN employees e ON d.dept_id = e.dept_id
 GROUP BY d.dept_name;
 ```
 Shows department name and number of employees in each.
+
 ---
-### Example: Total Sales per Customer
+#### Example: Total Sales per Customer
 ```sql
 SELECT c.customer_name, SUM(o.order_total) AS total_spent
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
 GROUP BY c.customer_name;
 ```
+
 ---
-## **2. JOIN with Subqueries**
+### **2. JOIN with Subqueries**
 Subqueries allow you to **filter or calculate** something separately, then JOIN it.
-### Example: Join with a filtered subquery
+
+#### Example: Join with a filtered subquery
 ```sql
 SELECT e.emp_name, d.dept_name
 FROM employees e
@@ -983,8 +1057,9 @@ JOIN (
 ) d ON e.dept_id = d.dept_id;
 ```
 Joins only non-HR departments.
+
 ---
-### Example: Subquery with Aggregation + JOIN
+#### Example: Subquery with Aggregation + JOIN
 ```sql
 SELECT d.dept_name, stats.avg_salary
 FROM departments d
@@ -997,11 +1072,11 @@ JOIN (
 
 ---
 
-## **3. JOIN with CTEs (Common Table Expressions)**
+### **3. JOIN with CTEs (Common Table Expressions)**
 
 CTEs (using `WITH`) make queries **cleaner and reusable**.
 
-### Example: CTE + JOIN
+#### Example: CTE + JOIN
 
 ```sql
 WITH department_salaries AS (
@@ -1016,7 +1091,7 @@ JOIN department_salaries ds ON d.dept_id = ds.dept_id;
 
 ---
 
-### Why use CTEs?
+#### Why use CTEs?
 
 * Improves readability
 * Allows **multiple JOINs with the same logic**
@@ -1024,11 +1099,11 @@ JOIN department_salaries ds ON d.dept_id = ds.dept_id;
 
 ---
 
-## **4. JOIN Performance Considerations & Indexing**
+### **4. JOIN Performance Considerations & Indexing**
 
 JOINs can get **slow on large tables**, especially if columns being joined are **not indexed**.
 
-### Best Practices:
+#### Best Practices:
 
 | Tip                                                   | Why it Helps                     |
 | ----------------------------------------------------- | -------------------------------- |
@@ -1040,7 +1115,7 @@ JOINs can get **slow on large tables**, especially if columns being joined are *
 
 ---
 
-### Example: Add Index
+#### Example: Add Index
 
 ```sql
 CREATE INDEX idx_emp_dept_id ON employees(dept_id);
@@ -1050,15 +1125,15 @@ Makes JOINs on `dept_id` much faster.
 
 ---
 
-# **Module 10: Practical Projects**
+## **Module 10: Practical Projects**
 
 ---
 
-## **1. Build Mini-Projects Using Sample Databases**
+### **1. Build Mini-Projects Using Sample Databases**
 
 ---
 
-### **Project 1: HR Database**
+#### **Project 1: HR Database**
 
 **Tables:**
 
@@ -1077,7 +1152,7 @@ Makes JOINs on `dept_id` much faster.
 
 ---
 
-### **Project 2: School Database**
+#### **Project 2: School Database**
 
 **Tables:**
 
@@ -1097,7 +1172,7 @@ Makes JOINs on `dept_id` much faster.
 
 ---
 
-### **Project 3: E-commerce Database**
+#### **Project 3: E-commerce Database**
 
 **Tables:**
 
@@ -1118,7 +1193,7 @@ Makes JOINs on `dept_id` much faster.
 
 ---
 
-## **Tips for Project Execution**
+### **Tips for Project Execution**
 
 * Design your tables with proper primary & foreign keys.
 * Use **JOINs** to combine data from multiple tables.
